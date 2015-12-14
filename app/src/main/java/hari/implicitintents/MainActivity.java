@@ -19,106 +19,51 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.call_intent_btn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//Way-1(requires permission)
-//                Intent callIntent = new Intent(Intent.ACTION_CALL);
-//                callIntent.setData(Uri.parse("tel:9700715998"));
-//                startActivity(callIntent);
-//Way-2(requires permission)
-//                Intent in = new Intent(Intent.ACTION_CALL, Uri.parse("0000000000"));
-//                startActivity(in);
-//Way-3
-//                Intent callIntent = new Intent(Intent.ACTION_DIAL);
-//                callIntent.setData(Uri.parse("tel:9700715998"));
-//                startActivity(callIntent);
-            }
-        });
 
         findViewById(R.id.mail_intent_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//Way-1
-//                Intent intent = new Intent(Intent.ACTION_SEND);
-//                intent.setType("plain/text");
-//                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"dnshariprasad@gmail.com"});
-//                intent.putExtra(Intent.EXTRA_SUBJECT, "Test subject...");
-//                intent.putExtra(Intent.EXTRA_TEXT, "Test message..");
-//                startActivity(Intent.createChooser(intent, "Choose.."));
-//Way-2
-//                String uriText = "mailto:dnshariprasad@gmail.com" +
-//                        "?subject=" + Uri.encode("some subject text here") +
-//                        "&body=" + Uri.encode("some text here");
-//
-//                Uri uri = Uri.parse(uriText);
-//
-//                Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
-//                sendIntent.setData(uri);
-//                startActivity(Intent.createChooser(sendIntent, "Send email"));
-//Way-3
-//                Intent emailIntent = new Intent(
-//                        Intent.ACTION_SENDTO,
-//                        Uri.fromParts("mailto", "dnshariprasad@gmail.com",
-//                                null));
-//                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
-//                startActivity(Intent.createChooser(emailIntent, "Send email..."));
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setData(Uri.parse("mailto:"));
+                //Set additional data
+                String[] to = {"dnshariprasad@gmail.com", "dhp551@gmail.com"};
+                intent.putExtra(Intent.EXTRA_EMAIL, to);
+                intent.putExtra(Intent.EXTRA_SUBJECT, "I am Subject");
+                intent.putExtra(Intent.EXTRA_TEXT, "I am Body");
+                intent.setType("message/rfc822");
+                Intent chooser = Intent.createChooser(intent, "Select one..");
+                startActivity(chooser);
             }
         });
 
         findViewById(R.id.browser_intent_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//Way-1
-//                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com"));
-//                startActivity(browserIntent);
-//Way-2
-//                String q = "abc";
-//                Intent intent = new Intent(Intent.ACTION_WEB_SEARCH );
-//                intent.putExtra(SearchManager.QUERY, q);
-//                startActivity(intent);
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+                browserIntent.setData(Uri.parse("http://www.facebook.com"));
+                startActivity(browserIntent);
             }
         });
-
         findViewById(R.id.sms_intent_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//Way-1
-//                Uri uri = Uri.parse("smsto:9700715998");
-//                Intent it = new Intent(Intent.ACTION_SENDTO, uri);
-//                it.putExtra("sms_body", "The SMS text");
-//                startActivity(it);
-
-//Way-2
-//                String uriText = "smsto:9700715998" + "?sms_body" + Uri.encode("Test message..");
-//                Uri uri = Uri.parse(uriText);
-//
-//                Intent it = new Intent(Intent.ACTION_SENDTO, uri);
-//                startActivity(it);
-//Way-3
-//                String messageText = "Hi , Just SMSed to say hello";
-//                Intent sendIntent = new Intent(Intent.ACTION_VIEW);
-//                sendIntent.setData(Uri.parse("sms:" + "9700715998"));
-//                sendIntent.putExtra("sms_body", messageText);
-//                startActivity(sendIntent);
-
-//Way - 4(requires permission)
-//                SmsManager smsManager = SmsManager.getDefault();
-//                smsManager.sendTextMessage("9700715998", null, "Message from the API", null, null);
-
-//Way - 4
-//                startActivity(new Intent(Intent.ACTION_VIEW, Uri.fromParts("sms", 9700715998, null)));
+                Intent it = new Intent(Intent.ACTION_SENDTO);
+                it.setData(Uri.parse("smsto:9700715998"));
+                it.putExtra("sms_body", "I am SMS text");
+                startActivity(it);
             }
         });
         findViewById(R.id.map_intent_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent();
-//                intent.setAction(Intent.ACTION_VIEW);
-//                String geoData = String.format("geo:%s,%s", 0, 0);
-//                String data = String.format("%s?z=%s", geoData, 50);
-//                intent.setData(Uri.parse(data));
-//                startActivity(intent);
+                //Create intent for map
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                //attach your geo points
+                intent.setData(Uri.parse("geo:0,0"));
+                //create a chooser ro show all apps that can handle this intent
+                Intent chooser = Intent.createChooser(intent, "Select One..");
+                //rise intent
+                startActivity(chooser);
             }
         });
     }
